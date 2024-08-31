@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from datetime import datetime
-from scrape import sripe_stocks
+from scrape import sripe_stocks, scrape_pm25
 
 print("__name__")
 
@@ -74,6 +74,18 @@ def w_bmi(name, height, weight):
         return f"{name}的BMI:{bmi}"
     except Exception as a:
         return "輸入錯誤"
+
+
+@app.route("/pm25")
+def get_pm25():
+    today = datetime.now()
+    columns, values = scrape_pm25()
+    data = {
+        "columns": columns,
+        "values": values,
+        "today": today.strftime("%Y/%m/%d %M:%H:%S"),
+    }
+    return render_template("pm.html", data=data)
 
 
 app.run(debug=True)
