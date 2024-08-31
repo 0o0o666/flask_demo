@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from datetime import datetime
+from scrape import sripe_stocks
 
 print("__name__")
 
@@ -48,6 +49,12 @@ def index():
     name = "aaa"
     # return f"<h1>Hello Flask!<br>{today}</hz1>"
     return render_template("index.html", date=today, name=name)
+
+
+@app.route("/stocks")
+def get_stocks():
+    datas = sripe_stocks()
+    return render_template("stocks.html", datas=datas)
 
 
 @app.route("/books")

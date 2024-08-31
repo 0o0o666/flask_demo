@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今年股市資訊</title>
+</head>
+<style>
+    body {
+        background-color: rgb(246, 250, 194);
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .stocks {
+        background-color: rgb(32, 73, 255);
+        margin: 6px auto;
+        width: 500px;
+        text-align: center;
+        padding: 6px;
+        color: white;
+        border-radius: 5px;
+        font-size: 30px;
+        font-weight: 800;
+
+    }
+</style>
+
+<body>
+    <h1>今年主要股市漲幅</h1>
+    {% if datas %}
+    {% for datas in datas[1:] %}
+    <div class="stocks">{{datas[0]}}{{datas[1]}}</div>
+    {% endfor %}
+
+    {% else %}
+    <h2>忙碌中請稍後再試</h2>
+
+    {% endif %}
+
+
+    <a href="/">回首頁</a>
+</body>
+
+</html>
