@@ -31,6 +31,16 @@
             width: 90%;
         }
     }
+
+
+
+    #roload-sec {
+        width: 30px;
+    }
+
+    .fun {
+        padding: auto;
+    }
 </style>
 
 <body>
@@ -38,7 +48,16 @@
     <h2>目前時間 : {{data["today"]}}</h2>
     <a href="/">回首頁</a>
     <a href="">重新讀取</a>
+    <p>
+    <div class="fun">
+        <input type="checkbox" name="" id="check-reload">
+        開啟
+        <input type="number" id="roload-sec" value="30">秒數
+    </div>
 
+
+
+    </p>
     <form action="" method="POST">
 
 
@@ -65,9 +84,72 @@
             </tr>
             {% endfor %}
         </tbody>
-
     </table>
+    <script>
+        const checkReload = document.querySelector("#check-reload")
+        const reloadSecond = document.querySelector("#roload-sec")
+        const delaySecond = 30
 
+
+        window.onload = function () {
+            checkReload.checked = sessionStorage.getItem("checkReload") == "true";
+            reloadSecond.value = sessionStorage.getItem("reloadSecond") ? sessionStorage.getItem("reloadSecond")
+                : delaySecond
+            SetUpdateInterval();
+        };
+
+
+
+        checkReload.addEventListener("change", () => {
+            //儲存
+            sessionStorage.setItem("CheckReload", checkReload.checked);
+            SetUpdateInterval();
+        });
+
+        reloadSecond.addEventListener('input', () => {
+            checkReload.checked = false
+            sessionStorage.setItem("CheckReload", checkReload.checked);
+            sessionStorage.setItem("ReloadSecond", reloadSecond.value);
+        });
+
+
+        let intervalId = null
+
+
+
+        function SetUpdateInterval() {
+            if (checkReload.checked) {
+                console.log("start reload");
+                let sec = Number(reloadSecond.value) * 1000;
+                intervalId = setInterval((() => {
+                    window.location.reload()
+                }), sec);
+            } else {
+                clearInterval(intervalId)
+            }
+
+        };
+
+
+
+
+
+
+
+
+
+
+        checkReload.addEventListener("change", () => {
+            console.log(checkReload.checked, reloadSecond.value);
+
+            sessionStorage.setItem("checkReload", checkReload.checked);
+            sessionStorage.setItem("reloadSecond", reloadSecond.value);
+
+            const sortBtn = document.querySelector("button");
+            console.log(sortBtn)
+        })
+
+    </script>
 </body>
 
 </html>
