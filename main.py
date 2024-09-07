@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from datetime import datetime
 from scrape import sripe_stocks, scrape_pm25
 
@@ -78,8 +78,15 @@ def w_bmi(name, height, weight):
 
 @app.route("/pm25")
 def get_pm25():
+    print(request.args)
+    sort = False
+    ascending = True
     today = datetime.now()
-    columns, values = scrape_pm25()
+    print(today)
+    if "sort" in request.args:
+        sort = True
+        ascending = True if request.args.get("sort") == "true" else False
+    columns, values = scrape_pm25(sort, ascending)
     data = {
         "columns": columns,
         "values": values,

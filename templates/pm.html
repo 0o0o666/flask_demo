@@ -36,6 +36,17 @@
 <body>
     <h1>pm2.5 數據</h1>
     <h2>目前時間 : {{data["today"]}}</h2>
+    <a href="/">回首頁</a><br>
+
+    <form action="">
+
+
+        <select name="sort" id="sort">
+            <option value="true">升</option>
+            <option value="false">降</option>
+        </select>
+        <button type="submit">排序</button>
+    </form>
     <table border="1">
         <thead>
             <tr>
