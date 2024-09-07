@@ -76,16 +76,22 @@ def w_bmi(name, height, weight):
         return "輸入錯誤"
 
 
-@app.route("/pm25")
+@app.route("/pm25", methods=["GET", "POST"])
 def get_pm25():
+    # GET
     print(request.args)
+    # POST
+    print(request.form)
     sort = False
     ascending = True
     today = datetime.now()
     print(today)
-    if "sort" in request.args:
-        sort = True
-        ascending = True if request.args.get("sort") == "true" else False
+
+    if request.method == "POST":
+
+        if "sort" in request.form:
+            sort = True
+            ascending = True if request.form.get("sort") == "true" else False
     columns, values = scrape_pm25(sort, ascending)
     data = {
         "columns": columns,
