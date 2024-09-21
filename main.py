@@ -127,4 +127,4 @@ def pm25_chart():
     return render_template("pm25-chart.html")
 
 
-app.run(debug=True)
+app.run(host="0.0.0.0")
